@@ -1,29 +1,44 @@
-$(document).ready(function() {
+ $(document).ready(function() {
     $(".slider").each(function() {
         // $this is a reference to .slider in current iteration of each
         $this = $(this);
-          var value = $($this).attr('value')
-          var id = $($this).attr('id')
+          var value = $($this).attr('value');
+          var min  = $($this).attr('slider-min');
+          var max  = $($this).attr('slider-max');
+          var id = $(this).attr('id');
+          var dop_addr = $(this).attr('dop');
+          var idfunc = $(this).attr('idfunc');
+          var func = $(this).attr('func');
+          var address = $(this).attr('address');
+
         // find any .slider-range element WITHIN scope of $this
         $(".slider-range", $this).slider({
-            value: value,
-            min: 0,
-            max: 40,
+            value: value/1,
+            min: min/1,
+            max: max/1,
 
 
             slide: function( event, ui ) {
                // find any element with class .amount WITHIN scope of $this
                     $(this).siblings().text(ui.value);
+
             },
 
             stop: function(event, ui) {
-              $('#checkid').val(id);
-              $('#checkvalue').text(ui.value);
-              document.querySelector('.CheckPush').click()
-                $this.slider
-                alert('Температура устройства ' + id + ' изменена');
+            var data =  $(this).slider('value')
 
+            $                (this).siblings().text(ui.value);
 
+          alert('Температура устройства '+ id + '  установлена на '+ data + ' градусов' );
+
+               $.ajax({
+     url: '/ajaxcheckbox',
+         type: 'post',
+         data: {id:id, data:data, dop_addr:dop_addr, func:func, address:address},
+           success: function(response){
+
+                 },
+                })
 
             }
 

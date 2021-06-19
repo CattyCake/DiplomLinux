@@ -135,24 +135,6 @@ class Type_device(db.Model):
 
 
 
-class Device_Card():
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(45), primary_key=False)
-    value = db.Column(db.DECIMAL(6, 1), primary_key=False)
-    idfunc = db.Column(db.Integer, primary_key=False)
-    code = db.Column(db.String(45), primary_key=False)
-    idgroup = db.Column(db.Integer, primary_key=False)
-    val_max = db.Column(db.Integer, primary_key=False)
-    val_min = db.Column(db.Integer, primary_key=False)
-    write_enable = db.Column(db.Integer, primary_key=False)
-    idtype_device = db.Column(db.Integer, primary_key=False)
-    measure = db.Column(db.Integer, primary_key=False)
-    img = db.Column(db.String(45), primary_key=False)
-
-    def __repr__(self):
-        return '<Device_Card %>' % self.id
-
-
 
 @app.route('/', methods=['POST', 'GET'])
 def rooms():
@@ -163,8 +145,9 @@ def rooms():
     function1 = Function1.query.all()
     func = Func.query.all()
     type_device = Type_device.query.all()
+    device = Device.query.all()
 
-    return render_template('rooms.html', type_device=type_device, func=func, rooms=rooms,
+    return render_template('rooms.html', device=device, type_device=type_device, func=func, rooms=rooms,
                            device_room=device_room, function1= function1, dop_addr=dop_addr)
 
 
@@ -179,10 +162,11 @@ def ajax_request():
         function1 = Function1.query.all()
         func = Func.query.all()
         type_device = Type_device.query.all()
+        device = Device.query.all()
 
 
 
-    return  jsonify({'htmlresponse': render_template('response.html', type_device=type_device, func=func, rooms=rooms, device_room=device_room,
+    return  jsonify({'htmlresponse': render_template('response.html', device=device, type_device=type_device, func=func, rooms=rooms, device_room=device_room,
                                          function1=function1, dop_addr=dop_addr)})
 
 @app.route('/roominfo', methods = ['POST'])
@@ -194,13 +178,14 @@ def ajax_info():
         device_room = Device_room.query.all()
         dop_addr = Dop_addr.query.all()
         function1 = Function1.query.all()
+        device = Device.query.all()
         y=int(id)
         x=bytes(b'\x01')
 
 
         func = Func.query.all()
 
-    return jsonify({'htmlresponse1': render_template('roominfo.html', y=y, x=x,  id=id,  func=func, rooms=rooms, device_room=device_room,
+    return jsonify({'htmlresponse1': render_template('roominfo.html', device=device, y=y, x=x,  id=id,  func=func, rooms=rooms, device_room=device_room,
                                                      function1= function1, dop_addr=dop_addr)})
 
 @app.route('/button', methods=['POST'])
@@ -219,6 +204,8 @@ def ajax_checkbox():
         id1 = request.form['id']
         data1 = request.form['data']
         dop_addr1 = request.form['dop_addr']
+        address1 = request.form['address']
+        func1 = request.form['func']
 
         function1 = Function1.query.get(id1)
         function1.data = data1
@@ -229,12 +216,22 @@ def ajax_checkbox():
 
 
         os.system(r' >/home/alex/PycharmProjects/flaskProject/php.txt')
-        x = str("_" + id1 + "_1_" + data1)
+        if(func1 == "2" or func1 == "5" or func1 == "6" or func1 == "17"):
+            x = str("_" + address1 + "_1_" + func1 + "_" + dop_addr1 + "_" + data1)
+
+        if(func1 == "12"):
+            data1 = int(data1) * 2
+            data1 = str(data1)
+            x = str("_" + address1 + "_1_" + func1 + "_" + dop_addr1 + "_" + data1)
+
+        if (func1 == "8"):
+            x = str("_" + address1 + "_1_" + func1 + "_" + dop_addr1 + "_" + data1)
+
         handle = open("/home/alex/PycharmProjects/flaskProject/php.txt", "w")
         handle.write(x)
         handle.close()
         subprocess.call(["php", "/home/alex/PycharmProjects/flaskProject/php.txt"])
-        print("\n", id1, data1, dop_addr1)
+
 
         rooms = Room.query.all()
         device_room = Device_room.query.all()
