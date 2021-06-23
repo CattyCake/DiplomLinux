@@ -1,7 +1,11 @@
 <script src="/static/js/DragResize.js"></script>
 
-      {% for rooms in rooms %}
-           <div id="draggable" class="room ui-draggable ui-draggable-handle ui-resizable" >
+ {% set x = 0 %}
+   {% for rooms in rooms %}
+
+
+           <div xui ="{{ x }}" id="draggable" class="room ui-draggable ui-draggable-handle ui-resizable" >
+            {% set x = x + 1 %}
            <div class="room-name"><h2>{{ rooms.name }}</h2></div>
         {% for device_room in device_room %}
                 {% if device_room.id_room == rooms.id_room %}

@@ -207,12 +207,14 @@ def ajax_checkbox():
         address1 = request.form['address']
         func1 = request.form['func']
 
+
         function1 = Function1.query.get(id1)
         function1.data = data1
 
         try:
             db.session.commit()
         except: "Ошибка"
+
 
 
         os.system(r' >/home/alex/PycharmProjects/flaskProject/php.txt')
@@ -239,6 +241,7 @@ def ajax_checkbox():
         function1 = Function1.query.all()
         func = Func.query.all()
         type_device = Type_device.query.all()
+
 
 
 

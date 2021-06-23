@@ -18,9 +18,9 @@ document.addEventListener('click', function(e) {
        var address = $( e.target, '[it="shest02"]:checked' ).attr('address') || 'Перед нажатием на кнопку выделите checkbox!';
 
                $.ajax({
-     url: '/ajaxcheckbox',
+         url: '/ajaxcheckbox',
          type: 'post',
-                   data: {id:id, data:data, dop_addr:dop_addr, func:func, address:address},
+         data: {id:id, data:data, dop_addr:dop_addr, func:func, address:address},
            success: function(response){
         alert('Устройство ' + id + ' включено');
                  },
