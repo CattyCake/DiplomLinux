@@ -1,6 +1,6 @@
  $(document).ready(function() {
     $(".slider").each(function() {
-        // $this is a reference to .slider in current iteration of each
+
         $this = $(this);
           var value = $($this).attr('value');
           var min  = $($this).attr('slider-min');
@@ -11,12 +11,11 @@
           var func = $(this).attr('func');
           var address = $(this).attr('address');
 
-        // find any .slider-range element WITHIN scope of $this
+
         $(".slider-range", $this).slider({
             value: value/1,
             min: min/1,
             max: max/1,
-
 
             slide: function( event, ui ) {
                // find any element with class .amount WITHIN scope of $this
@@ -29,7 +28,7 @@
 
             $                (this).siblings().text(ui.value);
 
-          alert('Температура устройства '+ id + '  установлена на '+ data + ' градусов' );
+          alert('Значение параметра '+ id + '  установлена на '+ data  );
 
                $.ajax({
      url: '/ajaxcheckbox',

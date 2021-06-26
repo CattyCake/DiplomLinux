@@ -232,7 +232,7 @@ def ajax_checkbox():
         handle = open("/home/alex/PycharmProjects/flaskProject/php.txt", "w")
         handle.write(x)
         handle.close()
-        subprocess.call(["php", "/home/alex/PycharmProjects/flaskProject/php.txt"])
+        subprocess.call(["php", "/home/alex/PycharmProjects/flaskProject/msg.php"])
 
 
         rooms = Room.query.all()
