@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+
+
  $(".but_search").click(function(){
   var search = $('#search').val();
 
@@ -23,11 +25,16 @@ $(document).ready(function(){
 
  });
 
+var jqXHR;
+var target = 1;
+$(".response").mousedown(function(){target=0;  jqXHR.abort(); });
+$(".response").mouseup(function(){target=1 });
+
  setInterval(function() {
       var checkboxes = document.getElementsByClassName('checkbox');
   for (var index = 0; index < 1; index++) {
-   if (checkboxes[index].checked == 0 || 1) {
-    $.ajax({
+   if (checkboxes[index].checked == 0 && target == 1) {
+    jqXHR = $.ajax({
    url: '/ajax',
    type: 'post',
    beforeSend: function(){
@@ -45,6 +52,7 @@ $(document).ready(function(){
    }
   });
 }}}, 5000);
+
 
 $(document).on("click",".but_search", function(e){
      $.ajax({

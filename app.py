@@ -2,14 +2,11 @@ import subprocess
 import os
 from flask import Flask, render_template, url_for, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
-import cgi
-from multiprocessing import *
-import json
-from subprocess import check_output
+
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://u6J6EGP0Bo:bO4oY3mbs2@remotemysql.com:3306/u6J6EGP0Bo"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://u6J6EGP0Bo:T2ySOXrhpK@remotemysql.com/u6J6EGP0Bo"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -21,7 +18,7 @@ db = SQLAlchemy(app)
 class Room(db.Model):
     __tablename__ = 'room'
 
-    id_room = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    idroom = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(45), primary_key=False)
     window = db.Column(db.String(256), primary_key=False)
     wall = db.Column(db.String(256), primary_key=False)
@@ -39,7 +36,7 @@ class Device_room(db.Model):
 
     id_d_r = db.Column(db.Integer, primary_key=True)
     id_dop_addr = db.Column(db.Integer, db.ForeignKey('dop_addr.id_dop_addr'), primary_key=False)
-    id_room = db.Column(db.Integer, db.ForeignKey('room.id_room'), primary_key=False)
+    id_room = db.Column(db.Integer, db.ForeignKey('room.idroom'), primary_key=False)
 
     def __repr__(self):
         return '<Device_room %>' % self.id
@@ -146,8 +143,9 @@ def rooms():
     func = Func.query.all()
     type_device = Type_device.query.all()
     device = Device.query.all()
+    byte1 = bytes(b'\x01')
 
-    return render_template('rooms.html', device=device, type_device=type_device, func=func, rooms=rooms,
+    return render_template('rooms.html', byte1=byte1, device=device, type_device=type_device, func=func, rooms=rooms,
                            device_room=device_room, function1= function1, dop_addr=dop_addr)
 
 
@@ -163,10 +161,12 @@ def ajax_request():
         func = Func.query.all()
         type_device = Type_device.query.all()
         device = Device.query.all()
+        byte1 = bytes(b'\x01')
 
 
 
-    return  jsonify({'htmlresponse': render_template('response.html', device=device, type_device=type_device, func=func, rooms=rooms, device_room=device_room,
+
+    return  jsonify({'htmlresponse': render_template('response.html', byte1=byte1,  device=device, type_device=type_device, func=func, rooms=rooms, device_room=device_room,
                                          function1=function1, dop_addr=dop_addr)})
 
 @app.route('/roominfo', methods = ['POST'])
@@ -229,6 +229,7 @@ def ajax_checkbox():
         if (func1 == "8"):
             x = str("_" + address1 + "_1_" + func1 + "_" + dop_addr1 + "_" + data1)
 
+        print (x)
         handle = open("/home/alex/PycharmProjects/flaskProject/php.txt", "w")
         handle.write(x)
         handle.close()

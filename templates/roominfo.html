@@ -3,13 +3,13 @@
 <div class="container">
 
        {% for rooms in rooms %}
-               {% if rooms.id_room == y %}
+               {% if rooms.idroom == y %}
 
             <div><h1>{{ rooms.name }}</h1></div>
 
 
                      {% for device_room in device_room %}
-                {% if device_room.id_room == rooms.id_room %}
+                {% if device_room.id_room == rooms.idroom %}
                     {% for dop_addr in dop_addr %}
                         {% if device_room.id_dop_addr == dop_addr.id_dop_addr %}
 
