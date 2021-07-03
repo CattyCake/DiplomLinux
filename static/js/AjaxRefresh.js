@@ -1,9 +1,13 @@
 $(document).ready(function(){
 
+ function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 var jqXHR;
 var target = 1;
 $(".response").mousedown(function(){target=0;  jqXHR.abort(); });
-$(".response").mouseup(function(){target=1 });
+$(".response").mouseup(function(){ setTimeout(()=>{ target=1},2000) });
 
 
  $(".but_search").click(function(){
