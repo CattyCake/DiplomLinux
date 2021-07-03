@@ -22,7 +22,7 @@ document.addEventListener('click', function(e) {
          type: 'post',
          data: {id:id, data:data, dop_addr:dop_addr, func:func, address:address},
            success: function(response){
-        alert('Устройство ' + id + ' включено');
+
                  },
                 });
 
@@ -40,7 +40,6 @@ document.addEventListener('click', function(e) {
          type: 'post',
                    data: {id:id, data:data, dop_addr:dop_addr, func:func, address:address},
            success: function(response){
-        alert('Устройство ' + id + ' выключено');
                  },
                 });
    }

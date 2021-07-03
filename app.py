@@ -217,6 +217,24 @@ def ajax_checkbox():
 
 
 
+        os.system(r' >/home/alex/PycharmProjects/flaskProject/php.txt')
+        if(func1 == "2" or func1 == "5" or func1 == "6" or func1 == "17"):
+            x = str("_" + address1 + "_1_" + func1 + "_" + dop_addr1 + "_" + data1)
+
+        if(func1 == "12"):
+            data1 = int(data1) * 2
+            data1 = str(data1)
+            x = str("_" + address1 + "_1_" + func1 + "_" + dop_addr1 + "_" + data1)
+
+        if (func1 == "8"):
+            x = str("_" + address1 + "_1_" + func1 + "_" + dop_addr1 + "_" + data1)
+
+        print (x)
+        handle = open("/home/alex/PycharmProjects/flaskProject/php.txt", "w")
+        handle.write(x)
+        handle.close()
+        subprocess.call(["php", "/home/alex/PycharmProjects/flaskProject/msg.php"])
+
 
         rooms = Room.query.all()
         device_room = Device_room.query.all()
