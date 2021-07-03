@@ -22,7 +22,7 @@ document.addEventListener('click', function(e) {
          type: 'post',
          data: {id:id, data:data, dop_addr:dop_addr, func:func, address:address},
            success: function(response){
-
+                alert('Значение параметра '+ id + '  установлена на '+ data  );
                  },
                 });
 
@@ -34,12 +34,13 @@ document.addEventListener('click', function(e) {
        var dop_addr = $( e.target, '[it="shest02"]:checked' ).attr('dop') || 'Перед нажатием на кнопку выделите checkbox!';
        var func = $( e.target, '[it="shest02"]:checked' ).attr('func') || 'Перед нажатием на кнопку выделите checkbox!';
        var address = $( e.target, '[it="shest02"]:checked' ).attr('address') || 'Перед нажатием на кнопку выделите checkbox!';
-
+       var devname = $( e.target, '[it="shest02"]:checked' ).attr('devname');
                $.ajax({
      url: '/ajaxcheckbox',
          type: 'post',
                    data: {id:id, data:data, dop_addr:dop_addr, func:func, address:address},
            success: function(response){
+         alert('Значение параметра '+ id + '  установлена на '+ data  );
                  },
                 });
    }

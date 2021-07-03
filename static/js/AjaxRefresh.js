@@ -6,8 +6,8 @@ $(document).ready(function(){
 
 var jqXHR;
 var target = 1;
-$(".response").mousedown(function(){target=0;  jqXHR.abort(); });
-$(".response").mouseup(function(){ setTimeout(()=>{ target=1},2000) });
+$(".page").mousedown(function(){target=0;  jqXHR.abort(); });
+$(".page").mouseup(function(){ setTimeout(()=>{ target=1},2000) });
 
 
  $(".but_search").click(function(){
